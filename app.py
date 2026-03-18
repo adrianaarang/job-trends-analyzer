@@ -114,9 +114,15 @@ else:
         columns=["skill", "count"]
     ).sort_values(by="count", ascending=False)
 
-    fig3, ax3 = plt.subplots()
-    skills_df.head(10).plot(kind="bar", x="skill", y="count", ax=ax3)
-    st.pyplot(fig3)
+  fig3, ax3 = plt.subplots(figsize=(5, 3))
+
+skills_df.head(8).plot(kind="barh", x="skill", y="count", ax=ax3)
+
+ax3.set_title("Top tecnologías", fontsize=10)
+
+plt.tight_layout()
+
+st.pyplot(fig3)
 
     # -------------------------
     # TABLA
