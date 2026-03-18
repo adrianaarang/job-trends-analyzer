@@ -1,6 +1,10 @@
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 import requests
+
 
 st.title("📊 Job Trends Analyzer")
 
@@ -17,3 +21,8 @@ try:
 
 except Exception as e:
     st.error(f"Error cargando datos: {e}")
+st.subheader("Top empresas")
+
+fig, ax = plt.subplots()
+df["company_name"].value_counts().head(10).plot(kind="bar", ax=ax)
+st.pyplot(fig)
