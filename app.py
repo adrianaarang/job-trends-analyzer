@@ -8,7 +8,7 @@ import requests
 
 st.set_page_config(page_title="Job Trends Analyzer", layout="wide")
 
-st.title("Job Trends Analyzer")
+st.title(" Job Trends Analyzer")
 
 # -------------------------
 # CARGAR DATOS
@@ -36,11 +36,11 @@ for col in ["title", "company_name", "category", "candidate_required_location", 
 col1, col2 = st.columns(2)
 
 with col1:
-    search = st.text_input("Buscar (python, data, ai...)")
+    search = st.text_input("🔍 Buscar (python, data, ai...)")
 
 with col2:
     category = st.selectbox(
-        "Categoria",
+        "Categoría",
         ["Todas"] + sorted(df["category"].unique())
     )
 
@@ -61,47 +61,40 @@ if search:
     ]
 
 # -------------------------
-# METRICAS
+# MÉTRICAS
 # -------------------------
 col1, col2, col3 = st.columns(3)
 
 col1.metric("Ofertas", len(filtered_df))
-col2.metric("Empresas", filtered_df["company_name"].nunique())
+col2.metric(" Empresas", filtered_df["company_name"].nunique())
 col3.metric("Ubicaciones", filtered_df["candidate_required_location"].nunique())
 
 # -------------------------
-# RESULTADOS
+# SI NO HAY RESULTADOS
 # -------------------------
 if filtered_df.empty:
     st.warning("No hay resultados")
 else:
     col1, col2 = st.columns(2)
 
-    # -------------------------
-    # GRAFICO EMPRESAS
-    # -------------------------
+    # gráfico empresas
     with col1:
         st.subheader("Top empresas")
-        fig1, ax1 = plt.subplots(figsize=(6, 3))
+        fig1, ax1 = plt.subplots()
         filtered_df["company_name"].value_counts().head(10).plot(kind="bar", ax=ax1)
-        plt.xticks(rotation=45)
-        plt.tight_layout()
         st.pyplot(fig1)
 
-    # -------------------------
-    # GRAFICO UBICACIONES
-    # -------------------------
+    # gráfico ubicaciones
     with col2:
         st.subheader("Ubicaciones")
-        fig2, ax2 = plt.subplots(figsize=(6, 3))
+        fig2, ax2 = plt.subplots()
         filtered_df["candidate_required_location"].value_counts().head(10).plot(kind="barh", ax=ax2)
-        plt.tight_layout()
         st.pyplot(fig2)
 
     # -------------------------
-    # SKILLS AUTOMATICAS
+    # SKILLS AUTOMÁTICAS
     # -------------------------
-    st.subheader("Top tecnologias")
+    st.subheader(" Tecnologías más demandadas")
 
     skills_list = [
         "python", "java", "javascript", "react", "node", "sql",
@@ -121,16 +114,14 @@ else:
         columns=["skill", "count"]
     ).sort_values(by="count", ascending=False)
 
-    fig3, ax3 = plt.subplots(figsize=(5, 3))
-    skills_df.head(8).plot(kind="barh", x="skill", y="count", ax=ax3)
-    ax3.set_title("Top tecnologias", fontsize=10)
-    plt.tight_layout()
+    fig3, ax3 = plt.subplots()
+    skills_df.head(10).plot(kind="bar", x="skill", y="count", ax=ax3)
     st.pyplot(fig3)
 
     # -------------------------
     # TABLA
     # -------------------------
-    st.subheader("Ofertas")
+    st.subheader(" Ofertas")
 
     st.dataframe(
         filtered_df[[
