@@ -13,8 +13,15 @@ st.title(" Job Trends Analyzer (Real Data)")
 # CARGAR DATOS
 # -------------------------
 url = "https://remotive.com/api/remote-jobs"
-data = requests.get(url).json()
-df = pd.DataFrame(data["jobs"])
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    df = pd.DataFrame(data["jobs"])
+except Exception as e:
+    st.error(f"Error cargando datos: {e}")
+    st.stop()
+    df = pd.DataFrame(data["jobs"])
 
 # -------------------------
 # LIMPIEZA 
