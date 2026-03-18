@@ -1,8 +1,10 @@
+import matplotlib
+matplotlib.use("Agg")
+
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import requests
-
 st.set_page_config(page_title="Job Trends Analyzer", layout="wide")
 
 st.title(" Job Trends Analyzer (Real Data)")
