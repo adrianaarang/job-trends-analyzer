@@ -6,7 +6,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import requests
 
-st.title("📊 Job Trends Analyzer")
+st.set_page_config(page_title="Job Trends Analyzer", layout="wide")
+
+st.title(" Job Trends Analyzer")
 
 # -------------------------
 # CARGAR DATOS
@@ -29,17 +31,18 @@ for col in ["title", "company_name", "category", "candidate_required_location", 
     df[col] = df[col].fillna("").astype(str)
 
 # -------------------------
-# BUSCADOR
+# FILTROS
 # -------------------------
-search = st.text_input("🔍 Buscar (python, data, ai...)")
+col1, col2 = st.columns(2)
 
-# -------------------------
-# FILTRO CATEGORÍA
-# -------------------------
-category = st.selectbox(
-    "📂 Categoría",
-    ["Todas"] + sorted(df["category"].unique())
-)
+with col1:
+    search = st.text_input("🔍 Buscar (python, data, ai...)")
+
+with col2:
+    category = st.selectbox(
+        "Categoría",
+        ["Todas"] + sorted(df["category"].unique())
+    )
 
 # -------------------------
 # FILTRADO
@@ -58,25 +61,68 @@ if search:
     ]
 
 # -------------------------
-# RESULTADOS
+# MÉTRICAS
 # -------------------------
-st.write("Ofertas encontradas:", len(filtered_df))
+col1, col2, col3 = st.columns(3)
+
+col1.metric("Ofertas", len(filtered_df))
+col2.metric(" Empresas", filtered_df["company_name"].nunique())
+col3.metric("Ubicaciones", filtered_df["candidate_required_location"].nunique())
 
 # -------------------------
-# SI NO HAY DATOS
+# SI NO HAY RESULTADOS
 # -------------------------
 if filtered_df.empty:
-    st.warning("⚠️ No hay resultados")
+    st.warning("No hay resultados")
 else:
-    # gráfico
-    st.subheader("Top empresas")
+    col1, col2 = st.columns(2)
 
-    fig, ax = plt.subplots()
-    filtered_df["company_name"].value_counts().head(10).plot(kind="bar", ax=ax)
-    st.pyplot(fig)
+    # gráfico empresas
+    with col1:
+        st.subheader("Top empresas")
+        fig1, ax1 = plt.subplots()
+        filtered_df["company_name"].value_counts().head(10).plot(kind="bar", ax=ax1)
+        st.pyplot(fig1)
 
-    # tabla
-    st.subheader("📋 Ofertas")
+    # gráfico ubicaciones
+    with col2:
+        st.subheader("Ubicaciones")
+        fig2, ax2 = plt.subplots()
+        filtered_df["candidate_required_location"].value_counts().head(10).plot(kind="barh", ax=ax2)
+        st.pyplot(fig2)
+
+    # -------------------------
+    # SKILLS AUTOMÁTICAS
+    # -------------------------
+    st.subheader(" Tecnologías más demandadas")
+
+    skills_list = [
+        "python", "java", "javascript", "react", "node", "sql",
+        "aws", "docker", "kubernetes", "html", "css",
+        "machine learning", "ai", "data", "pandas"
+    ]
+
+    text = filtered_df["description"].str.lower().str.cat(sep=" ")
+
+    skill_counts = {}
+
+    for skill in skills_list:
+        skill_counts[skill] = text.count(skill)
+
+    skills_df = pd.DataFrame(
+        skill_counts.items(),
+        columns=["skill", "count"]
+    ).sort_values(by="count", ascending=False)
+
+    fig3, ax3 = plt.subplots()
+    skills_df.head(10).plot(kind="bar", x="skill", y="count", ax=ax3)
+    st.pyplot(fig3)
+
+    # -------------------------
+    # TABLA
+    # -------------------------
+    st.subheader(" Ofertas")
+
     st.dataframe(
         filtered_df[[
             "title",
