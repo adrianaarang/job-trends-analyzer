@@ -86,6 +86,13 @@ Permite explorar ofertas de empleo, identificar patrones de contratación y dete
 
 ---
 
+<h2>📸 Capturas</h2>
+
+<p align="center">
+  <img src="img/job1.jpg" width="800"><br><br>
+  <img src="img/job2.jpg" width="800"><br><br>
+</p>
+
 <h2>🌐 Integración con API</h2>
 
 <ul>
