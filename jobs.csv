@@ -1,0 +1,21 @@
+title,location,salary,skills,experience,company
+Data Analyst,Madrid,32000,Python;SQL;Excel,Junior,Accenture
+Backend Developer,Barcelona,40000,Java;Spring;SQL,Mid,Indra
+Data Scientist,Madrid,50000,Python;ML;Pandas,Senior,BBVA
+Frontend Developer,Valencia,35000,JavaScript;React;CSS,Mid,Everis
+AI Engineer,Madrid,55000,Python;TensorFlow;Deep Learning,Senior,Google
+Data Analyst,Barcelona,33000,Python;SQL;PowerBI,Junior,Deloitte
+DevOps Engineer,Sevilla,45000,AWS;Docker;Kubernetes,Senior,Amazon
+Backend Developer,Madrid,42000,Node.js;Express;MongoDB,Mid,Cabify
+Data Scientist,Valencia,48000,Python;R;Statistics,Senior,IBM
+Frontend Developer,Madrid,36000,React;TypeScript;HTML,Mid,Glovo
+Data Analyst,Sevilla,31000,Excel;SQL;Tableau,Junior,Telefonica
+AI Engineer,Barcelona,60000,Python;NLP;Deep Learning,Senior,Meta
+Backend Developer,Valencia,39000,Java;Spring Boot;MySQL,Mid,Capgemini
+DevOps Engineer,Madrid,47000,Azure;CI/CD;Linux,Senior,Microsoft
+Data Scientist,Barcelona,52000,Python;ML;Big Data,Senior,Amazon
+Frontend Developer,Sevilla,34000,Vue.js;JavaScript;CSS,Mid,StartupX
+Data Analyst,Valencia,30000,SQL;Excel;Python,Junior,LocalTech
+AI Engineer,Madrid,58000,Python;Computer Vision;PyTorch,Senior,NVIDIA
+Backend Developer,Barcelona,41000,Go;Microservices;Docker,Mid,Stripe
+DevOps Engineer,Valencia,46000,AWS;Terraform;Kubernetes,Senior,Oracle
